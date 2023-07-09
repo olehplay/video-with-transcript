@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.6.8/plyr.css" />
+    <style>
+      #custom-player .plyr--video .plyr__controls {
+        background-color: #1e2635;
+        padding-bottom: 15px;
+        padding-top: 15px;
+      }
+
+      #custom-player .plyr__control {
+        color: #9bbaee;
+      }
+
+      #custom-player .plyr__control:hover,
+      #custom-player .plyr--video .plyr__control[aria-expanded="true"] {
+        color: #ff8a00;
+      }
+
+      #custom-player .plyr__progress--played {
+        background-color: #4f5e77;
+      }
+
+      #custom-player .plyr__progress--buffer {
+        background-color: #36445c;
+      }
+
+      #custom-player .plyr__volume--display {
+        color: #ff8a00;
+      }
+
+      #custom-player .plyr__control.plyr__tab-focus,
+      #custom-player .plyr__control[aria-expanded="true"] {
+        background-color: #f4f4f4;
+        color: #323232;
+      }
+
+      #custom-player .plyr__menu__value[data-value="0.5"] {
+        color: #9bbaee;
+      }
+      #custom-player .plyr__controls .plyr__controls__item.plyr__time {
+        font-size: 16px;
+        font-family: "Hind Siliguri", sans-serif;
+      }
+      #custom-player .plyr__menu__container .plyr__control > span {
+        font-family: "Hind Siliguri", sans-serif;
+        align-items: inherit;
+        display: flex;
+        width: 100%;
+        color: #36445c;
+        font-size: 16px;
+      }
+      #custom-player .plyr__control--overlaid svg {
+        left: 5px;
+        position: relative;
+        fill: #ff8a00;
+        width: 40px;
+        height: 40px;
+        margin: 10px;
+      }
+      #custom-player .plyr__progress .plyr__tooltip {
+        font-size: 16px;
+        font-family: "Hind Siliguri", sans-serif;
+      }
+      #custom-player .plyr__progress input[type="range"] {
+        cursor: pointer;
+      }
+      #transcript {
+        margin-top: 20px;
+        padding: 10px;
+        line-height: 1.5;
+      }
+      .highlight {
+        background-color: #ff8a00;
+        color: white;
+        font-weight: 600;
+        padding: 5px;
+      }
+      .my-hidden {
+        display: none;
+      }
+      .show-transcript-btn {
+        margin-top: 30px;
+        background-color: #ff8a00;
+        font-family: inherit;
+        font-size: 18px;
+        font-weight: 600;
+        color: white;
+        border-radius: 20px;
+        padding: 7px 14px;
+        cursor: pointer;
+        border: none;
+        transition: 0.5s ease-in-out;
+      }
+      .show-transcript-btn:hover {
+        background-color: #d27204;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="custom-player">
+      <video width="100%" controls>
+        <source
+          src="https://codefinity-content-media.s3.eu-west-1.amazonaws.com/code-1/react-pro/react-router/suspense-recording.mp4"
+          type="video/mp4"
+          data-plyr-config='{
+          "quality": {
+            "default": "720",
+            "options": ["144", "240", "360", "480", "720", "1080"]
+          }
+        }'
+        />
+      </video>
+    </div>
+    <button class="show-transcript-btn js-show-transcript-btn">
+      Show Transcript
+    </button>
+    <div id="transcript" class="my-hidden"></div>
+
+    <script src="https://cdn.plyr.io/3.6.8/plyr.js"></script>
+    <script>
+      const showTranscriptBtn = document.querySelector(
+        ".js-show-transcript-btn"
+      );
+      showTranscriptBtn.addEventListener("click", handleClick);
+
+      function handleClick() {
+        const transcriptElement = document.getElementById("transcript");
+        transcriptElement.classList.toggle("my-hidden");
+
+        if (transcriptElement.classList.contains("my-hidden")) {
+          showTranscriptBtn.textContent = "Show Transcript";
+        } else {
+          showTranscriptBtn.textContent = "Hide Transcript";
+        }
+      }
+
+      const player = new Plyr("#custom-player video", {
+        controls: [
+          "play-large",
+          "play",
+          "progress",
+          "current-time",
+          "mute",
+          "volume",
+          "captions",
+          "settings",
+          "fullscreen",
+        ],
+        volume: 0.5,
+        muted: false,
+        settings: ["captions", "quality", "speed"],
+        captions: {
+          active: true,
+          language: "en",
+        },
+        fullscreen: {
+          enabled: true,
+          fallback: true,
+          iosNative: true,
+        },
+        speed: {
+          selected: 1,
+          options: [0.5, 1, 1.5, 2],
+        },
+        quality: {
+          default: "720",
+          options: ["144", "240", "360", "480", "720", "1080"],
+        },
+      });
+
+      player.on("qualitychange", (event) => {
+        console.log(`Quality changed to ${event.quality}`);
+      });
+
+      player.on("ratechange", (event) => {
+        console.log(`Speed changed to ${event.detail.plyr.speed}`);
+      });
+
+      const transcriptData = [
+        {
+          start: 0,
+          end: 10,
+          text: "The next step would be improving of user experience. As some users may have problems with the connection while they are waiting the page to be loaded.",
+        },
+        {
+          start: 11,
+          end: 20,
+          text: "We would like to show any kind of loader. Ok? So, let's see what we have right now. To imitate the bad connection, we can go",
+        },
+        // Add more transcript segments as needed
+      ];
+
+      const transcriptElement = document.getElementById("transcript");
+
+      function updateTranscript(currentTime) {
+        // Clear previous transcript highlighting
+        transcriptElement.querySelectorAll("p").forEach((p) => {
+          p.classList.remove("highlight");
+        });
+
+        // Find the current segment based on the current time
+        const currentSegment = transcriptData.find(
+          (segment) =>
+            currentTime >= segment.start && currentTime <= segment.end
+        );
+
+        // Highlight the current segment's text
+        if (currentSegment) {
+          const currentSegmentElement = transcriptElement.querySelector(
+            `p[data-start="${currentSegment.start}"][data-end="${currentSegment.end}"]`
+          );
+          if (currentSegmentElement) {
+            currentSegmentElement.classList.add("highlight");
+          }
+        }
+      }
+
+      player.on("timeupdate", (event) => {
+        const currentTime = event.detail.plyr.currentTime;
+        updateTranscript(currentTime);
+      });
+
+      const transcriptHTML = transcriptData
+        .map(
+          (segment) =>
+            `<p data-start="${segment.start}" data-end="${segment.end}">${segment.text}</p>`
+        )
+        .join("");
+
+      transcriptElement.innerHTML = transcriptHTML;
+    </script>
+  </body>
+</html>
