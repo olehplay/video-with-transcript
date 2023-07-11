@@ -101,6 +101,7 @@
   <body>
     <div id="custom-player">
       <video width="100%" controls>
+        <!-- Change the value for the src attribute into your recording link. -->
         <source
           src="https://codefinity-content-media.s3.eu-west-1.amazonaws.com/code-1/react-pro/react-router/suspense-recording.mp4"
           type="video/mp4"
@@ -178,6 +179,11 @@
         console.log(`Speed changed to ${event.detail.plyr.speed}`);
       });
 
+      /*
+        'start' represent the time start in seconds.
+        'end' represents the time end in seconds.
+        'text' represents the text to be shown.
+      */
       const transcriptData = [
         {
           start: 0,
