@@ -1,126 +1,124 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <link rel="stylesheet" href="https://cdn.plyr.io/3.6.8/plyr.css" />
-    <style>
-      #custom-player .plyr--video .plyr__controls {
-        background-color: #1e2635;
-        padding-bottom: 15px;
-        padding-top: 15px;
-      }
+<link rel="stylesheet" href="https://cdn.plyr.io/3.6.8/plyr.css" />
+<style>
+  #custom-player .plyr--video .plyr__controls {
+    background-color: #1e2635;
+    padding-bottom: 15px;
+    padding-top: 15px;
+  }
 
-      #custom-player .plyr__control {
-        color: #9bbaee;
-      }
+  #custom-player .plyr__control {
+    color: #9bbaee;
+  }
 
-      #custom-player .plyr__control:hover,
-      #custom-player .plyr--video .plyr__control[aria-expanded="true"] {
-        color: #ff8a00;
-      }
+  #custom-player .plyr__control:hover,
+  #custom-player .plyr--video .plyr__control[aria-expanded="true"] {
+    color: #ff8a00;
+  }
 
-      #custom-player .plyr__progress--played {
-        background-color: #4f5e77;
-      }
+  #custom-player .plyr__progress--played {
+    background-color: #4f5e77;
+  }
 
-      #custom-player .plyr__progress--buffer {
-        background-color: #36445c;
-      }
+  #custom-player .plyr__progress--buffer {
+    background-color: #36445c;
+  }
 
-      #custom-player .plyr__volume--display {
-        color: #ff8a00;
-      }
+  #custom-player .plyr__volume--display {
+    color: #ff8a00;
+  }
 
-      #custom-player .plyr__control.plyr__tab-focus,
-      #custom-player .plyr__control[aria-expanded="true"] {
-        background-color: #f4f4f4;
-        color: #323232;
-      }
+  #custom-player .plyr__control.plyr__tab-focus,
+  #custom-player .plyr__control[aria-expanded="true"] {
+    background-color: #f4f4f4;
+    color: #323232;
+  }
 
-      #custom-player .plyr__menu__value[data-value="0.5"] {
-        color: #9bbaee;
-      }
-      #custom-player .plyr__controls .plyr__controls__item.plyr__time {
-        font-size: 16px;
-        font-family: "Hind Siliguri", sans-serif;
-      }
-      #custom-player .plyr__menu__container .plyr__control > span {
-        font-family: "Hind Siliguri", sans-serif;
-        align-items: inherit;
-        display: flex;
-        width: 100%;
-        color: #36445c;
-        font-size: 16px;
-      }
-      #custom-player .plyr__control--overlaid svg {
-        left: 5px;
-        position: relative;
-        fill: #ff8a00;
-        width: 40px;
-        height: 40px;
-        margin: 10px;
-      }
-      #custom-player .plyr__progress .plyr__tooltip {
-        font-size: 16px;
-        font-family: "Hind Siliguri", sans-serif;
-      }
-      #custom-player .plyr__progress input[type="range"] {
-        cursor: pointer;
-      }
-      #transcript {
-        margin-top: 20px;
-        padding: 10px;
-        line-height: 1.5;
-      }
-      .highlight {
-        background-color: #ff8a00;
-        color: white;
-        font-weight: 600;
-        padding: 5px;
-      }
-      .my-hidden {
-        display: none;
-      }
-      .show-transcript-btn {
-        margin-top: 30px;
-        background-color: #ff8a00;
-        font-family: inherit;
-        font-size: 18px;
-        font-weight: 600;
-        color: white;
-        border-radius: 20px;
-        padding: 7px 14px;
-        cursor: pointer;
-        border: none;
-        transition: 0.5s ease-in-out;
-      }
-      .show-transcript-btn:hover {
-        background-color: #d27204;
-      }
-    </style>
-  </head>
-  <body>
-    <div id="custom-player">
-      <video width="100%" controls>
-        <!-- Change the value for the src attribute into your recording link. -->
-        <source
-          src="https://codefinity-content-media.s3.eu-west-1.amazonaws.com/code-1/react-pro/react-router/suspense-recording.mp4"
-          type="video/mp4"
-          data-plyr-config='{
+  #custom-player .plyr__menu__value[data-value="0.5"] {
+    color: #9bbaee;
+  }
+  #custom-player .plyr__controls .plyr__controls__item.plyr__time {
+    font-size: 16px;
+    font-family: "Hind Siliguri", sans-serif;
+  }
+  #custom-player .plyr__menu__container .plyr__control > span {
+    font-family: "Hind Siliguri", sans-serif;
+    align-items: inherit;
+    display: flex;
+    width: 100%;
+    color: #36445c;
+    font-size: 16px;
+  }
+  #custom-player .plyr__control--overlaid svg {
+    left: 5px;
+    position: relative;
+    fill: #ff8a00;
+    width: 40px;
+    height: 40px;
+    margin: 10px;
+  }
+  #custom-player .plyr__progress .plyr__tooltip {
+    font-size: 16px;
+    font-family: "Hind Siliguri", sans-serif;
+  }
+  #custom-player .plyr__progress input[type="range"] {
+    cursor: pointer;
+  }
+  #transcript {
+    margin-top: 20px;
+    padding: 10px;
+    line-height: 1.5;
+  }
+  .highlight {
+    background-color: #ff8a00;
+    color: white;
+    font-weight: 600;
+    padding: 5px;
+  }
+  .my-hidden {
+    display: none;
+  }
+  .show-transcript-btn {
+    margin-top: 30px;
+    background-color: #ff8a00;
+    font-family: inherit;
+    font-size: 18px;
+    font-weight: 600;
+    color: white;
+    border-radius: 20px;
+    padding: 7px 14px;
+    cursor: pointer;
+    border: none;
+    transition: 0.5s ease-in-out;
+  }
+  .show-transcript-btn:hover {
+    background-color: #d27204;
+  }
+</style>
+
+<body onload="handleLoad()">
+  <div id="custom-player">
+    <video width="100%" controls>
+      <!-- Change the value for the src attribute into your recording link. -->
+      <source
+        src="https://codefinity-content-media.s3.eu-west-1.amazonaws.com/code-1/react-pro/react-router/suspense-recording.mp4"
+        type="video/mp4"
+        data-plyr-config='{
           "quality": {
             "default": "720",
             "options": ["144", "240", "360", "480", "720", "1080"]
           }
         }'
-        />
-      </video>
-    </div>
-    <button class="show-transcript-btn js-show-transcript-btn">
-      Show Transcript
-    </button>
-    <div id="transcript" class="my-hidden"></div>
+      />
+    </video>
+  </div>
+  <button class="show-transcript-btn js-show-transcript-btn">
+    Show Transcript
+  </button>
+  <div id="transcript" class="my-hidden"></div>
 
-    <script src="https://cdn.plyr.io/3.6.8/plyr.js"></script>
-    <script>
+  <script src="https://cdn.plyr.io/3.6.8/plyr.js"></script>
+  <script>
+    const handleLoad = () => {
       const showTranscriptBtn = document.querySelector(
         ".js-show-transcript-btn"
       );
@@ -236,6 +234,6 @@
         .join("");
 
       transcriptElement.innerHTML = transcriptHTML;
-    </script>
-  </body>
-</html>
+    };
+  </script>
+</body>
